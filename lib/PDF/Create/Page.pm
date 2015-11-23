@@ -377,20 +377,33 @@ sub text {
 
     PDF::Create::debug( 2, "text(%params):" );
 
-    if (defined $params{'start'}) { $ptext = "BT "; }
+    my @directives = ();
 
+    if (defined $params{'start'}) { push @directives, "BT"; }
+
+    # Font index
+    if (defined $params{'F'})  {
+        push @directives, "/F$params{'F'}";
+        $self->{'pdf'}->uses_font($self, $params{'F'});
+    }
+    # Font size
+    if (defined $params{'Tf'}) { push @directives, "$params{'Tf'} Tf"; }
     # Text Rise (Super/Subscript)
-    if (defined $params{'Ts'})    { $ptext .= " $params{'Ts'} Ts "; }
+    if (defined $params{'Ts'}) { push @directives, "$params{'Ts'} Ts"; }
     # Rendering Mode
-    if (defined $params{'Tr'})    { $ptext .= " $params{'Tr'} Tr "; }
+    if (defined $params{'Tr'}) { push @directives, "$params{'Tr'} Tr"; }
     # Text Leading
-    if (defined $params{'TL'})    { $ptext .= " $params{'TL'} TL "; }
+    if (defined $params{'TL'}) { push @directives, "$params{'TL'} TL"; }
     # Character spacing
-    if (defined $params{'Tc'})    { $ptext .= " $params{'Tc'} Tc "; }
+    if (defined $params{'Tc'}) { push @directives, "$params{'Tc'} Tc"; }
     # Word Spacing
-    if (defined $params{'Tw'})    { $ptext .= " $params{'Tw'} Tw "; }
+    if (defined $params{'Tw'}) { push @directives, "$params{'Tw'} Tw"; }
     # Horizontal Scaling
-    if (defined $params{'Tz'})    { $ptext .= " $params{'Tz'} Tz "; }
+    if (defined $params{'Tz'}) { push @directives, "$params{'Tz'} Tz"; }
+    # Moveto
+    if (defined $params{'Td'}) { push @directives, "$params{'Td'} Td"; }
+    # Moveto and set TL
+    if (defined $params{'TD'}) { push @directives, "$params{'TD'} TD"; }
 
     # Moveto and rotateOA
     my $pi = atan2(1, 1) * 4;
@@ -401,27 +414,22 @@ sub text {
         $y = 0 unless ($y > 0);
         my $cos = cos($r * $piover180);
         my $sin = sin($r * $piover180);
-        $ptext .= sprintf(" %.5f %.5f -%.5f %.5f %s %s Tm ", $cos, $sin, $sin, $cos, $x, $y);
+        push @directives, sprintf("%.5f %.5f -%.5f %.5f %s %s Tm", $cos, $sin, $sin, $cos, $x, $y);
     }
 
-    # Font size
-    if (defined $params{'Tf'}) { $ptext .= "/F$params{'Tf'} Tf "; }
-    # Moveto
-    if (defined $params{'Td'}) { $ptext .= " $params{'Td'} Td "; }
-    # Moveto and set TL
-    if (defined $params{'TD'}) { $ptext .= " $params{'TD'} TD "; }
     # New line
-    if (defined $params{'T*'}) { $ptext .= " T* "; }
+    if (defined $params{'T*'}) { push @directives, "T*"; }
 
     if (defined $params{'text'}) {
         $params{'text'} =~ s|([()])|\\$1|g;
-        $ptext .= "($params{'text'}) Tj ";
+        push @directives, "($params{'text'}) Tj";
     }
 
     if (defined $params{'end'}) {
-        $ptext .= " ET";
+        push @directives, "ET";
+        $ptext = join(' ', @directives);
         $self->{'pdf'}->page_stream($self);
-        $self->{'pdf'}->add("$ptext");
+        $self->{'pdf'}->add($ptext);
     }
 
     PDF::Create::debug( 3, "text(): $ptext" );
@@ -460,24 +468,30 @@ sub string {
         $x -= $size * $self->string_width($font, $string) / 2;
     }
 
+    my @directives = (
+        'BT',
+        "/F$font",
+        "$size Tf",
+    );
+
     if (defined $char_spacing && $char_spacing =~ m/[0-9]+\.?[0-9]*/) {
-        $char_spacing = sprintf("%s Tc", $char_spacing);
-    }
-    else {
-        $char_spacing = '';
+        push @directives, sprintf("%s Tc", $char_spacing);
     }
 
     if (defined $word_spacing && $word_spacing =~ m/[0-9]+\.?[0-9]*/) {
-        $word_spacing = sprintf("%s Tw", $word_spacing);
+        push @directives, sprintf("%s Tw", $word_spacing);
     }
-    else {
-        $word_spacing = '';
-    }
+
+    $string =~ s|([()])|\\$1|g;
+
+    push @directives,
+        "$x $y Td",
+        "($string) Tj",
+        'ET';
 
     $self->{'pdf'}->page_stream($self);
     $self->{'pdf'}->uses_font($self, $font);
-    $string =~ s|([()])|\\$1|g;
-    $self->{'pdf'}->add("BT /F$font $size Tf $char_spacing $word_spacing $x $y Td ($string) Tj ET");
+    $self->{'pdf'}->add(join(' ', @directives));
 }
 
 =head2 string_underline($font, $size, $x, $y, $text, $alignment)
@@ -623,6 +637,105 @@ sub printnl {
     }
 
     return $n;
+}
+
+sub _get_text ($$) {
+    my ($words, $num_words) = @_;
+
+    if (scalar @$words < $num_words) { die @_ };
+
+    return join(' ', map { $$words[$_] // die "wanted $_+1, have ".scalar(@$words) } (0..($num_words-1)));
+}
+
+=head2
+
+=cut
+
+sub block_text {
+    my ($self, $params) = @_;
+
+    my $page       = $params->{page};
+    my $font       = $params->{font};
+    my $text       = $params->{text};
+    my $font_size  = $params->{font_size};
+    my $text_color = $params->{text_color};
+    my $line_width = $params->{line_width};
+    my $start_y    = $params->{start_y};
+    my $end_y      = $params->{end_y};
+    my $x          = $params->{x};
+    my $y          = $params->{y};
+
+    my @words = split(/ /, $text);
+    my @lines = ();
+
+    my $avg_word_length = 5;
+    my $one_space   = $page->string_width($font, ' ') * $font_size;
+
+    while (@words) {
+        my $num_words    = 1;
+        my $string_width = 0;
+
+        my $space_width = undef;
+
+        while (1) {
+            $string_width = $font_size * $page->string_width(
+                $font, _get_text(\@words, $num_words));
+
+            # Shorter, try one more word
+            if ($string_width + $one_space < $line_width) {
+                if (scalar(@words) > $num_words) {
+                    $num_words++;
+                    next;
+                }
+            }
+
+            last if ($num_words == 1);
+
+            # Longer, chop a word off, then space accordingly
+            if ($string_width + $one_space > $line_width || scalar(@words) == $num_words) {
+                unless (scalar(@words) == $num_words) {
+                    $num_words--;
+                }
+
+                $string_width = $font_size * $page->string_width(
+                    $font, _get_text(\@words, $num_words));
+
+                $space_width = ($line_width - $string_width) / $num_words;
+                last;
+            }
+        }
+        push @lines, {
+            text        => _get_text(\@words, $num_words),
+            space_width => $space_width,
+        };
+
+        splice(@words, 0, $num_words);
+    }
+
+    # Forget justification on the last line
+    # or         it         ends         up         like         this.
+    $lines[-1]->{'space_width'} = undef;
+
+    foreach my $line (@lines) {
+        $page->text(
+            start => 1,
+            Tw    => $line->{'space_width'},
+            F     => $font,
+            Tf    => $font_size,
+            Td    => "$x $y",
+            text  => $line->{'text'},
+            end   => 1,
+        );
+
+        if ($y <= $end_y) {
+            $y = $start_y;
+            $page = $page->{'Parent'}->new_page();
+            $page->setrgbcolor(@$text_color);
+        }
+        else {
+            $y -= int($font_size * 1.5);
+        }
+    }
 }
 
 =head2 image(%params)
