@@ -449,9 +449,10 @@ Example :
 =cut
 
 sub string {
-    my ($self, $font, $size, $x, $y, $string, $align) = @_;
+    my ($self, $font, $size, $x, $y, $string, $align,
+        $char_spacing, $word_spacing) = @_;
 
-    $align = 'L' unless defined $align;;
+    $align = 'L' unless defined $align;
 
     if (uc($align) eq "R") {
         $x -= $size * $self->string_width($font, $string);
@@ -459,10 +460,24 @@ sub string {
         $x -= $size * $self->string_width($font, $string) / 2;
     }
 
+    if (defined $char_spacing && $char_spacing =~ m/[0-9]+\.?[0-9]*/) {
+        $char_spacing = sprintf("%s Tc", $char_spacing);
+    }
+    else {
+        $char_spacing = '';
+    }
+
+    if (defined $word_spacing && $word_spacing =~ m/[0-9]+\.?[0-9]*/) {
+        $word_spacing = sprintf("%s Tw", $word_spacing);
+    }
+    else {
+        $word_spacing = '';
+    }
+
     $self->{'pdf'}->page_stream($self);
     $self->{'pdf'}->uses_font($self, $font);
     $string =~ s|([()])|\\$1|g;
-    $self->{'pdf'}->add("BT /F$font $size Tf $x $y Td ($string) Tj ET");
+    $self->{'pdf'}->add("BT /F$font $size Tf $char_spacing $word_spacing $x $y Td ($string) Tj ET");
 }
 
 =head2 string_underline($font, $size, $x, $y, $text, $alignment)
