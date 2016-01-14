@@ -4,7 +4,7 @@
 # Author: Michael Gross <info@mdgrosse.net>
 #
 # Copyright 1999-2001 Fabien Tassin
-# Copyright 2007-     Markus Baertschi <markus@markus.org>
+# Copyright 2007      Markus Baertschi <markus@markus.org>
 #
 # Please see the CHANGES and Changes file for the detailed change log
 #
@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use FileHandle;
 
-our $VERSION = '1.26';
+our $VERSION = '1.27';
 our $DEBUG   = 0;
 
 sub new

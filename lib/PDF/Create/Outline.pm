@@ -4,7 +4,7 @@
 # Author: Fabien Tassin
 #
 # Copyright 1999-2001 Fabien Tassin
-# Copyright 2007-     Markus Baertschi <markus@markus.org>
+# Copyright 2007      Markus Baertschi <markus@markus.org>
 # Copyright 2010      Gary Lieberman
 #
 # Please see the CHANGES and Changes file for the detailed change log
@@ -24,7 +24,7 @@ use FileHandle;
 use Data::Dumper;
 use Scalar::Util qw(weaken);
 
-our $VERSION = '1.26';
+our $VERSION = '1.27';
 our $DEBUG   = 0;
 
 sub new

@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.26';
+our $VERSION = '1.27';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.26
+Version 1.27
 
 =cut
 
@@ -1094,9 +1094,9 @@ freely, but I do  request that this copyright notice remain attached to the file
 You may modify this module as you wish,but if you redistribute a modified version,
 please attach a note listing the modifications you have made.
 
-Copyright 2007-, Markus Baertschi
+Copyright 2007 Markus Baertschi
 
-Copyright 2010, Gary Lieberman
+Copyright 2010 Gary Lieberman
 
 =head1 LICENSE
 

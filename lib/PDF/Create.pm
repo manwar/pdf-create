@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.26';
+our $VERSION = '1.27';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.26
+Version 1.27
 
 =cut
 
@@ -1518,7 +1518,7 @@ GIF and JPEG-support: Michael Gross (info@mdgrosse.net)
 
 Maintenance since 2007: Markus Baertschi (markus@markus.org)
 
-Currently maintained by Mohammad S Anwar (MANWAR) << <mohammad.anwar@yahoo.com> >>
+Currently maintained by Mohammad S Anwar (MANWAR) C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 REPOSITORY
 
@@ -1531,9 +1531,11 @@ freely, but I do  request that this copyright notice remain attached to the file
 You may modify this module as you wish,but if you redistribute a modified version,
 please attach a note listing the modifications you have made.
 
-Copyright 2007-, Markus Baertschi
+Copyright 1999-2001 Fabien Tassin
 
-Copyright 2010, Gary Lieberman
+Copyright 2007 Markus Baertschi
+
+Copyright 2010 Gary Lieberman
 
 =head1 LICENSE
 

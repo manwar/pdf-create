@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.27  2016-01-14 10:50:00 MANWAR
+      - Added LICENSE file.
+
 1.26  2016-01-03 00:45:00 MANWAR
       - Merged GitHub Pull Request #9 from ESERTE.
 
