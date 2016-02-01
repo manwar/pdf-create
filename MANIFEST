@@ -35,3 +35,5 @@ t/pdf-logo.jpg
 t/pod.t
 t/manifest.t
 t/changes.t
+t/meta-json.t
+t/meta-yml.t

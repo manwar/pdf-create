@@ -1,5 +1,9 @@
 Revision history for PDF::Create
 
+1.28  2016-02-01 16:10:00 MANWAR
+      - Removed +x attribute from some of the test scripts.
+      - Added test scripts t/meta-json.t and t/meta-yml.t.
+
 1.27  2016-01-14 10:50:00 MANWAR
       - Added LICENSE file.
 
