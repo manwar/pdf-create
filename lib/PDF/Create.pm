@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.24';
+our $VERSION = '1.27';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.24
+Version 1.27
 
 =cut
 
