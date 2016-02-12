@@ -1,5 +1,10 @@
 Revision history for PDF::Create
 
+1.29  2016-02-12 11:15:00 MANWAR
+      - Updated method block_text() to parameterize paragraph spacing on email request
+        of Joel Goode.
+      - Added example code to the pod for the method block_text().
+
 1.28  2016-02-01 16:10:00 MANWAR
       - Removed +x attribute from some of the test scripts.
       - Added test scripts t/meta-json.t and t/meta-yml.t.

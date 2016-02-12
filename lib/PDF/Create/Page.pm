@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.28';
+our $VERSION = '1.29';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.28
+Version 1.29
 
 =cut
 
@@ -667,25 +667,67 @@ sub printnl {
 
 Add block of text to the page. Parameters are explained as below:
 
-    +------------+--------------------------------------------------------------+
-    | Key        | Description                                                  |
-    +------------+--------------------------------------------------------------+
-    | page       | Object of type PDF::Create::Page                             |
-    | font       | Font index to be used.                                       |
-    | text       | Text block to be used.                                       |
-    | font_size  | Font size for the text.                                      |
-    | text_color | Text color as arrayref i.e. [r, g, b]                        |
-    | line_width | Line width (in points)                                       |
-    | start_y    | First row number (in points) when adding new page.           |
-    | end_y      | Last row number (in points) when to add new page.            |
-    | x          | x co-ordinate to start the text.                             |
-    | y          | y co-ordinate to start the text.                             |
-    +------------+--------------------------------------------------------------+
+     +------------+--------------------------------------------------------------+
+     | Key        | Description                                                  |
+     +------------+--------------------------------------------------------------+
+     | page       | Object of type PDF::Create::Page                             |
+     | font       | Font index to be used.                                       |
+     | text       | Text block to be used.                                       |
+     | font_size  | Font size for the text.                                      |
+     | text_color | Text color as arrayref i.e. [r, g, b]                        |
+     | line_width | Line width (in points)                                       |
+     | start_y    | First row number (in points) when adding new page.           |
+     | end_y      | Last row number (in points) when to add new page.            |
+     | x          | x co-ordinate to start the text.                             |
+     | y          | y co-ordinate to start the text.                             |
+     | para_space_factor | Gap between paragraphs. Default 1.5 times font size.  |
+     +------------+--------------------------------------------------------------+
+
+     use strict; use warnings;
+     use PDF::Create;
+
+     my $pdf  = PDF::Create->new('filename'=>"$0.pdf", 'Author'=>'MANWAR', 'Title'=>'Create::PDF');
+     my $root = $pdf->new_page('MediaBox' => $pdf->get_page_size('A4'));
+     my $page = $root->new_page;
+     my $font = $pdf->font('BaseFont' => 'Helvetica');
+
+     $page->rectangle(30, 780, 535, 40);
+     $page->setrgbcolor(0,1,0);
+     $page->fill;
+
+     $page->setrgbcolorstroke(1,0,0);
+     $page->line(30, 778, 565, 778);
+
+     $page->setrgbcolor(0,0,1);
+     $page->string($font, 15, 102, 792, 'MANWAR - PDF::Create');
+
+     my $text = qq{
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+     };
+
+     $page->block_text({
+         page       => $page,
+         font       => $font,
+         text       => $text,
+         font_size  => 6,
+         text_color => [0,0,1],
+         line_width => 535,
+         start_y    => 780,
+         end_y      => 60,
+         'x'        => 30,
+         'y'        => 770,
+     });
+
+     $pdf->close;
 
 =cut
 
 sub block_text {
     my ($self, $params) = @_;
+
+    croak "ERROR: parameters to method block_text() should be hashref.\n"
+        unless (defined $params && (ref($params) eq 'HASH'));
 
     my $page       = $params->{page};
     my $font       = $params->{font};
@@ -698,6 +740,11 @@ sub block_text {
     my $x          = $params->{x};
     my $y          = $params->{y};
     my $one_space  = $page->string_width($font, ' ') * $font_size;
+
+    my $para_space_factor = 1.5;
+    $para_space_factor = $params->{para_space_factor}
+        if (exists $params->{para_space_factor}
+            && defined $params->{para_space_factor});
 
     my @lines = ();
     foreach my $block (split /\n/, $text) {
@@ -762,7 +809,7 @@ sub block_text {
             else {
                 $y -= int($font_size * 1.5);
                 if ($para_last_line) {
-                    $y -= int($font_size * 1.5);
+                    $y -= int($font_size * $para_space_factor);
                 }
             }
 
