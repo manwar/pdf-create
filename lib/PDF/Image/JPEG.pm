@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use FileHandle;
 
-our $VERSION = '1.29';
+our $VERSION = '1.30';
 our $DEBUG   = 0;
 
 sub new
@@ -354,4 +354,3 @@ sub ReadData
 }
 
 1;
-

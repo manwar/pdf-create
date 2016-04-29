@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.29';
+our $VERSION = '1.30';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.29
+Version 1.30
 
 =cut
 
@@ -367,8 +367,8 @@ listed below:
     |          |                                                                |
     | Encoding | Specifies the  encoding  from which the new encoding differs.  |
     |          | It must be one of the predefined encodings MacRomanEncoding,   |
-    |          | MacExpertEncoding, Symbol or WinAnsiEncoding. The default      |
-    |          | value is WinAnsiEncoding.                                      |
+    |          | MacExpertEncoding or WinAnsiEncoding. In this version, only    |
+    |          | WinAnsiEncoding is supported. This is the default value.       |
     |          |                                                                |
     | BaseFont | The PostScript name of the font. It can be one of the following|
     |          | base fonts: Courier, Courier-Bold, Courier-BoldOblique,        |
@@ -377,8 +377,7 @@ listed below:
     |          | Times-Bold, Times-Italic, Times-BoldItalic or Symbol.          |
     +----------+----------------------------------------------------------------+
 
-The ZapfDingbats font is not supported in this version. The default
-font is Helvetica.
+The ZapfDingbats font is not supported in this version.Default font is Helvetica.
 
     my $f1 = $pdf->font('BaseFont' => 'Helvetica');
 
@@ -394,6 +393,7 @@ sub font {
                                            Helvetica Helvetica-Bold Helvetica-BoldOblique Helvetica-Oblique
                                            Times-Roman Times-Bold Times-Italic Times-BoldItalic Symbol/ },
         );
+
     foreach my $key (keys %params) {
         croak "PDF::Create.pm - font(): Received invalid key [$key]"
             unless (exists $valid_font_parameters{$key});

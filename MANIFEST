@@ -1,5 +1,18 @@
 LICENSE
 Changes
+share/courier-bold.json
+share/courier-boldoblique.json
+share/courier-oblique.json
+share/courier.json
+share/helvetica-bold.json
+share/helvetica-boldoblique.json
+share/helvetica-oblique.json
+share/helvetica.json
+share/times-bold.json
+share/times-bolditalic.json
+share/times-italic.json
+share/times-roman.json
+share/symbol.json
 eg/sample-cgi.pl
 eg/sample.pl
 eg/pdf-logo.gif
@@ -9,6 +22,7 @@ lib/PDF/Create/Outline.pm
 lib/PDF/Create/Page.pm
 lib/PDF/Image/GIF.pm
 lib/PDF/Image/JPEG.pm
+lib/PDF/Font.pm
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
