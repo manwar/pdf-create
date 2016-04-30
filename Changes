@@ -1,5 +1,9 @@
 Revision history for PDF::Create
 
+1.30  2016-04-30 08:00:00 MANWAR
+      - Refactored character width handling for supported fonts.
+      - Fixed method block_text() w.r.t line spacing.
+
 1.29  2016-02-12 11:15:00 MANWAR
       - Updated method block_text() to parameterize paragraph spacing on email request
         of Joel Goode.
