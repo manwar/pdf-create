@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.30';
+our $VERSION = '1.31';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.30
+Version 1.31
 
 =cut
 
@@ -947,6 +947,8 @@ Fabien Tassin
 GIF and JPEG-support: Michael Gross (info@mdgrosse.net)
 
 Maintenance since 2007: Markus Baertschi (markus@markus.org)
+
+Currently maintained by Mohammad S Anwar (MANWAR) C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 REPOSITORY
 

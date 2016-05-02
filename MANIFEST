@@ -15,6 +15,7 @@ share/times-roman.json
 share/symbol.json
 eg/sample-cgi.pl
 eg/sample.pl
+eg/verify-char-width
 eg/pdf-logo.gif
 eg/pdf-logo.jpg
 lib/PDF/Create.pm

@@ -35,12 +35,12 @@ WriteMakefile(
     META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.30' },
-            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.30' },
-            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.30' },
-            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.30' },
-            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.30' },
-            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.30' },
+            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.31' },
+            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.31' },
+            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.31' },
+            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.31' },
+            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.31' },
+            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.31' },
         },
         resources => {
             repository => {

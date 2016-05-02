@@ -1,6 +1,6 @@
 package PDF::Font;
 
-our $VERSION = '1.30';
+our $VERSION = '1.31';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Font - Base font class for PDF::Create.
 
 =head1 VERSION
 
-Version 1.30
+Version 1.31
 
 =cut
 
@@ -25,7 +25,18 @@ use File::Share ':all';
 
 =head1 DESCRIPTION
 
-Base font class to support font families approved by L<PDF::Create>.
+Base font class to support font families approved by L<PDF::Create>. This is used
+in the method C<init_widths()> inside the package L<PDF::Create::Page>.
+
+=head1 SYNOPSIS
+
+    use strict; use warnings;
+    use PDF::Font;
+
+    my $font = PDF::Font->new('Helvetica');
+    my $char_widths = $font->char_width;
+    print "Character width: ", $font->get_char_width(ord('A')), "\n";
+    print "Character  name: ", $font->get_char_name(ord('A')), "\n";
 
 =head1 CONSTRUCTOR
 
@@ -154,9 +165,10 @@ sub _generate_char_width {
     my $file = dist_file('PDF-Create', $name);
     my $data = _load_data($file);
 
-    my $char_width = [];
-    foreach (@$data) {
-        push @$char_width, $_->{width};
+    my $sorted_data = [ sort { $a->{codepoint} <=> $b->{codepoint} } @$data ];
+    my $char_width  = [];
+    foreach my $char (@$sorted_data) {
+        push @$char_width, $char->{width};
     }
 
     return $char_width;
@@ -475,7 +487,7 @@ sub _supported_characters {
 
 =head1 AUTHORS
 
-Mohammad S Anwar (MANWAR) << <mohammad.anwar@yahoo.com> >>
+Mohammad S Anwar (MANWAR) C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 REPOSITORY
 
@@ -485,12 +497,12 @@ L<https://github.com/manwar/pdf-create>
 
 Copyright 1999-2001,Fabien Tassin.All rights reserved.It may be used and modified
 freely, but I do  request that this copyright notice remain attached to the file.
-You may modify this module as you wish,but if you redistribute a modified version,
-please attach a note listing the modifications you have made.
+You may modify this module as you wish,but if you redistribute a modified version
+, please attach a note listing the modifications you have made.
 
-Copyright 2007, Markus Baertschi
+Copyright 2007 Markus Baertschi
 
-Copyright 2010, Gary Lieberman
+Copyright 2010 Gary Lieberman
 
 =head1 LICENSE
 

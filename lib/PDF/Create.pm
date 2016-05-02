@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.30';
+our $VERSION = '1.31';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.30
+Version 1.31
 
 =cut
 
@@ -1528,10 +1528,8 @@ L<https://github.com/manwar/pdf-create>
 
 Copyright 1999-2001,Fabien Tassin.All rights reserved.It may be used and modified
 freely, but I do  request that this copyright notice remain attached to the file.
-You may modify this module as you wish,but if you redistribute a modified version,
-please attach a note listing the modifications you have made.
-
-Copyright 1999-2001 Fabien Tassin
+You may modify this module as you wish,but if you redistribute a modified version
+, please attach a note listing the modifications you have made.
 
 Copyright 2007 Markus Baertschi
 
