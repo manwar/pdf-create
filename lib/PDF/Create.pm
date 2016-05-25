@@ -474,7 +474,7 @@ sub new_outline {
 
     if (defined $params{Parent}) {
         croak "PDF::Create - new_outline(): Invalid value for key [Parent]."
-            unless (ref($params{Parent}) eq 'PDF::Create::Outline');
+            unless $params{Parent}->isa('PDF::Create::Outline');
     }
 
     unless ( defined $self->{'outlines'} ) {
