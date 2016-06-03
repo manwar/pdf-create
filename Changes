@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.32  2016-06-03 12:00:00 MANWAR
+      - Corrected Helvetica font width.
+
 1.31  2016-05-02 02:45:00 MANWAR
       - Updated method PDF::Font::_generate_char_width() to load data in sorted order.
       - Added script "verify-char-width" to test char width in different fonts.

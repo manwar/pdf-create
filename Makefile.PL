@@ -13,6 +13,7 @@ WriteMakefile(
     VERSION_FROM       => 'lib/PDF/Create.pm',
     ABSTRACT_FROM      => 'lib/PDF/Create.pm',
     LICENSE            => "perl",
+    EXE_FILES          => [ 'eg/verify-char-width' ],
     MIN_PERL_VERSION   => 5.006,
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker'     => 0,
@@ -31,16 +32,16 @@ WriteMakefile(
         'Test::LeakTrace' => '0.14',
     },
     dist       => { COMPRESS => "gzip", SUFFIX => "gz" },
-    clean      => { FILES => '*.bak *.old mibs/*.dump *.pdf' . 'lib/*/*~ lib/*/*/*~' },
+    clean      => { FILES => 'PDF-Create*' },
     META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.31' },
-            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.31' },
-            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.31' },
-            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.31' },
-            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.31' },
-            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.31' },
+            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.32' },
+            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.32' },
+            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.32' },
+            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.32' },
+            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.32' },
+            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.32' },
         },
         resources => {
             repository => {

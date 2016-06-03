@@ -1,6 +1,6 @@
 package PDF::Font;
 
-our $VERSION = '1.31';
+our $VERSION = '1.32';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Font - Base font class for PDF::Create.
 
 =head1 VERSION
 
-Version 1.31
+Version 1.32
 
 =cut
 
@@ -36,7 +36,7 @@ in the method C<init_widths()> inside the package L<PDF::Create::Page>.
     my $font = PDF::Font->new('Helvetica');
     my $char_widths = $font->char_width;
     print "Character width: ", $font->get_char_width(ord('A')), "\n";
-    print "Character  name: ", $font->get_char_name(ord('A')), "\n";
+    print "Character  name: ", $font->get_char_name(ord('A')) , "\n";
 
 =head1 CONSTRUCTOR
 
@@ -98,7 +98,7 @@ sub new {
 
     croak "Missing font name."
         unless defined $font_name;
-    croak "Invalid fond name [$font_name]."
+    croak "Invalid font name [$font_name]."
         unless (exists $SUPPORTED_FONTS->{$font_name});
 
     my $self = { debug => $DEBUG, font_name => $font_name };
