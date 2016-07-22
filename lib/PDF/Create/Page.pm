@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.32';
+our $VERSION = '1.33';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.32
+Version 1.33
 
 =cut
 

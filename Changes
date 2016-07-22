@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.33  2016-07-22 12:00:00 MANWAR
+      - Updated pod for package PDF::Font describing constructor.
+
 1.32  2016-06-03 12:00:00 MANWAR
       - Corrected Helvetica font width.
 

@@ -1,6 +1,6 @@
 package PDF::Font;
 
-our $VERSION = '1.32';
+our $VERSION = '1.33';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Font - Base font class for PDF::Create.
 
 =head1 VERSION
 
-Version 1.32
+Version 1.33
 
 =cut
 
@@ -40,9 +40,7 @@ in the method C<init_widths()> inside the package L<PDF::Create::Page>.
 
 =head1 CONSTRUCTOR
 
-It expects parameters as hashref with keys C<font_name> and C<char_width>.The key
-C<char_width> should be an arrayref containing characters width [0..255] in order
-whereas C<font_name> can be one of the following names:
+Expects C<font_name> as the only parameter. It can be one of the following names:
 
 =over 4
 
