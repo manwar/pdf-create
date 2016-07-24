@@ -634,7 +634,7 @@ and 800  will  be assumed. All subsequent invocations can omit all but the strin
 parameters.
 
 ATTENTION:There is no provision for changing pages.If you run out of space on the
-current page this will draw the string(s) outside the page and it will be invisble.
+current page this will draw the string(s) outside the page and it will be invisible.
 
 =cut
 
