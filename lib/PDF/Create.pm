@@ -592,7 +592,7 @@ sub reserve {
 
 =head2 add_comment($message)
 
-Add comment to the document.The string will show up in the PDF as postscript-stype
+Add comment to the document.The string will show up in the PDF as postscript-style
 comment:
 
     % this is a postscript comment
