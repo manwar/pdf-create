@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use FileHandle;
 
-our $VERSION = '1.34';
+our $VERSION = '1.35';
 our $DEBUG   = 0;
 
 sub new
