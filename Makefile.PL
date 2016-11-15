@@ -30,18 +30,19 @@ WriteMakefile(
     TEST_REQUIRES => {
         'Test::More'      => '1.00',
         'Test::LeakTrace' => '0.14',
+        'File::Temp'      => 0,
     },
     dist       => { COMPRESS => "gzip", SUFFIX => "gz" },
     clean      => { FILES => 'PDF-Create*' },
     META_MERGE => {
         'meta-spec' => { version => 2 },
         provides    => {
-            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.35' },
-            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.35' },
-            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.35' },
-            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.35' },
-            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.35' },
-            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.35' },
+            'PDF::Create'          => { file => 'lib/PDF/Create.pm'        , version => '1.36' },
+            'PDF::Create::Page'    => { file => 'lib/PDF/Create/Page.pm'   , version => '1.36' },
+            'PDF::Create::Outline' => { file => 'lib/PDF/Create/Outline.pm', version => '1.36' },
+            'PDF::Image::GIF'      => { file => 'lib/PDF/Image/GIF.pm'     , version => '1.36' },
+            'PDF::Image::JPEG'     => { file => 'lib/PDF/Image/JPEG.pm'    , version => '1.36' },
+            'PDF::Font'            => { file => 'lib/PDF/Font.pm'          , version => '1.36' },
         },
         resources => {
             repository => {

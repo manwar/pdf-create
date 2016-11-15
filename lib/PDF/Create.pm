@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.35';
+our $VERSION = '1.36';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.35
+Version 1.36
 
 =cut
 
@@ -557,7 +557,7 @@ sub close {
     $self->add_info;
     $self->add_crossrefsection;
     $self->add_trailer;
-    $self->{'fh'}->close if defined $self->{'fh'} && defined $self->{'filename'};
+    $self->{'fh'}->close if defined $self->{'fh'}; # && defined $self->{'filename'};
     $self->{'data'};
 }
 

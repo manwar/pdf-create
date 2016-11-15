@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.36  2016-11-15 09:50:00 MANWAR
+      - Proposed fix for RT #118764 (thanks Andrew Beverley).
+
 1.35  2016-09-09 10:20:00 MANWAR
       - Merge pull request #10 from zhouzhen1/typo
 
