@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use FileHandle;
 
-our $VERSION = '1.36';
+our $VERSION = '1.37';
 our $DEBUG   = 0;
 
 sub new
@@ -223,12 +223,12 @@ sub Open
 			 || $c == $M_SOF14
 			 || $c == $M_SOF15 ) {
 			close($fh);
-			$self->{error} = "PDF::Image::JPEG.pm: JPEG compression " . ord($c) . " not supported in PDF 1.3.", return 0;
+			$self->{error} = "PDF::Image::JPEG.pm: JPEG compression type " . ord($c) . " not supported in PDF 1.3.", return 0;
 		}
 
 		if ( $c == $M_SOF2 || $c == $M_SOF10 ) {
 			close($fh);
-			$self->{error} = "PDF::Image::JPEG.pm: JPEG compression " . ord($c) . " not supported in PDF 1.2.", return 0;
+			$self->{error} = "PDF::Image::JPEG.pm: JPEG compression type " . ord($c) . " not supported in PDF 1.2.", return 0;
 		}
 
 		if ( $c == $M_SOF0 || $c == $M_SOF1 ) {

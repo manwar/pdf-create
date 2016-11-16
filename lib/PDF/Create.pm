@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.36';
+our $VERSION = '1.37';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.36
+Version 1.37
 
 =cut
 
@@ -52,7 +52,8 @@ For complex  stuff  some understanding of the underlying Postscript/PDF format i
 necessary. In this case it might be better go with the more complete L<PDF::API2>
 modules to gain more features at the expense of a steeper learning curve.
 
-Example PDF creation with C<PDF::Create>:
+Example PDF creation with C<PDF::Create> (see L<PDF::Create::Page> for details
+of methods available on a page):
 
     use strict; use warnings;
     use PDF::Create;
@@ -691,10 +692,28 @@ sub annotation {
 
 Prepare an XObject (image) using the given arguments. This image will be added to
 the document if it is referenced at least once before the close method is called.
-In this version GIF,interlaced GIF and JPEG is supported.Usage of interlaced GIFs
+In this version GIF,interlaced GIF and JPEG is supported. Usage of interlaced GIFs
 are slower because they are decompressed, modified and  compressed again. The gif
 support is limited to images with a LZW minimum code size of 8. Small images with
-few colors can have a smaller minimum code size and will not work.
+few colors can have a smaller minimum code size and will not work. If you get
+errors regarding JPEG compression, then the compression method used in your
+JPEG file is not supported by C<PDF::Image::JPEG>. Try resaving the JPEG file
+with different compression options (for example, disable progressive
+compression).
+
+Example:
+
+    my $img = $pdf->image('image.jpg');
+
+    $page->image(
+        image  => $img,
+        xscale => 0.25, # scale image for better quality
+        yscale => 0.25,
+        xpos   => 50,
+        ypos   => 60,
+        xalign => 0,
+        yalign => 2,
+    );
 
 =cut
 
