@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.37';
+our $VERSION = '1.38';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.37
+Version 1.38
 
 =cut
 
@@ -105,9 +105,12 @@ to the constructor are detailed as below:
     +--------------+------------------------------------------------------------+
     |              |                                                            |
     | filename     | Destination file that will contain resulting PDF or '-' for|
-    |              | stdout.                                                    |
+    |              | stdout. If neither filename or fh are specified, the       |
+    |              | content will be stored in memory and returned when calling |
+    |              | close().                                                   |
     |              |                                                            |
     | fh           | Already opened filehandle that will contain resulting PDF. |
+    |              | See comment above regarding close().                       |
     |              |                                                            |
     | Version      | PDF Version to claim, can be 1.0 to 1.3 (default: 1.       |
     |              |                                                            |
@@ -543,7 +546,8 @@ sub version {
 Close does the work of creating the PDF data from the objects collected before.
 You must call close() after you have added all the contents as most of the real
 work building the  PDF is performed there. If omit calling close you get no PDF
-output.
+output. Returns the full content of the PDF if C<fh> was not defined on object
+creation.
 
 =cut
 
@@ -1468,9 +1472,10 @@ C<PDF::Create> comes with a couple of limitations or known caveats:
 
 =head2 PDF Size / Memory
 
-C<PDF::Create> assembles the entire PDF in memory if you create very large documents
-on a machine with a small amount of memory your program can fail because it runs out
-of memory.
+Unless using a filehandle, C<PDF::Create> assembles the entire PDF in memory.
+If you create very large documents on a machine with a small amount of memory
+your program can fail because it runs out of memory. If using a filehandle,
+data will be written immediately to the filehandle after each method.
 
 =head2 Small GIF images
 
