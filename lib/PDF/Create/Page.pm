@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.38';
+our $VERSION = '1.39';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.38
+Version 1.39
 
 =cut
 
@@ -734,8 +734,8 @@ sub block_text {
     my $font_size  = $params->{font_size};
     my $text_color = $params->{text_color};
     my $line_width = $params->{line_width};
-    my $start_y    = $params->{start_y};
-    my $end_y      = $params->{end_y};
+    my $start_y    = $params->{start_y} || 0;
+    my $end_y      = $params->{end_y} || 0;
     my $x          = $params->{x};
     my $y          = $params->{y};
     my $one_space  = $page->string_width($font, ' ') * $font_size;

@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.39  2016-11-19 07:50:00 MANWAR
+      - Proposed fix for RT #118778 (thanks Andrew Beverley).
+
 1.38  2016-11-17 10:25:00 MANWAR
       - Proposed fix for RT #118777 (thanks Andrew Beverley).
 
