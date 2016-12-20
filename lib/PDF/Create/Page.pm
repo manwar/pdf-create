@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.39';
+our $VERSION = '1.40';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.39
+Version 1.40
 
 =cut
 
@@ -421,7 +421,7 @@ sub text {
     # Character spacing
     if (defined $params{'Tc'}) { push @directives, "$params{'Tc'} Tc"; }
     # Word Spacing
-    if (defined $params{'Tw'}) { push @directives, "$params{'Tw'} Tw"; }
+    if (defined $params{'Tw'}) { push @directives, "$params{'Tw'} Tw"; } else { push @directives, "0 Tw"; }
     # Horizontal Scaling
     if (defined $params{'Tz'}) { push @directives, "$params{'Tz'} Tz"; }
     # Moveto
