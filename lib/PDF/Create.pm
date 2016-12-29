@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.40';
+our $VERSION = '1.41';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.40
+Version 1.41
 
 =cut
 
@@ -544,10 +544,12 @@ sub version {
 =head2 close(%params)
 
 Close does the work of creating the PDF data from the objects collected before.
-You must call close() after you have added all the contents as most of the real
-work building the  PDF is performed there. If omit calling close you get no PDF
-output. Returns the full content of the PDF if C<fh> was not defined on object
-creation.
+You must call C<close()> after you have added all the contents as most of the
+real work building the  PDF is performed there. If omit calling close you get
+no PDF output. Returns the raw content of the PDF.
+If C<fh> was provided when creating object of C<PDF::Create> then it does not
+try to close the file handle. It is, therefore, advised you call C<flush()>
+rather than C<close()>.
 
 =cut
 
@@ -555,6 +557,25 @@ sub close {
     my ($self, %params) = @_;
 
     debug( 2, "Closing PDF" );
+    my $raw_data = $self->flush;
+
+    if (defined $self->{'fh'} && defined $self->{'filename'}) {
+        $self->{'fh'}->close;
+    }
+
+    return $raw_data;
+}
+
+=head2 flush()
+
+Generate the PDF content and returns the raw content as it is.
+
+=cut
+
+sub flush {
+    my ($self) = @_;
+
+    debug( 2, "Flushing PDF" );
     $self->page_stream;
     $self->add_outlines if defined $self->{'outlines'};
     $self->add_catalog;
@@ -562,8 +583,8 @@ sub close {
     $self->add_info;
     $self->add_crossrefsection;
     $self->add_trailer;
-    $self->{'fh'}->close if defined $self->{'fh'}; # && defined $self->{'filename'};
-    $self->{'data'};
+
+    return $self->{data};
 }
 
 =head2 reserve($name, $type)

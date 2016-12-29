@@ -1,5 +1,13 @@
 Revision history for PDF::Create
 
+1.41  2016-12-29 15:10:00 MANWAR
+      - Proposed fix for RT #119292 and rollbacked patch for RT #118764.
+
+      Document how close() deals when <filename> or <fh> is involved.
+      i.e. When <fh> is provided then don't try to close the file handle
+      at the end. Leave that for the end user to deal with it outside.
+      Added new method flush() that does exactly this.
+
 1.40  2016-12-20 12:00:00 MANWAR
       - Proposed fix for RT #118945.
 

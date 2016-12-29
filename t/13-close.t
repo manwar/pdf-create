@@ -22,7 +22,7 @@ $pdf_with_filename->close();
 ok(!defined fileno($pdf_with_filename->{fh}), 'pdf with filename not closed properly');
 
 $pdf_with_filehandle->close();
-ok(!defined fileno($pdf_with_filehandle->{fh}), 'pdf with filehandle not closed properly');
+ok(defined fileno($pdf_with_filehandle->{fh}), 'pdf with filehandle should not be closed');
 
 sub create_pdf {
     my ($args) = @_;
