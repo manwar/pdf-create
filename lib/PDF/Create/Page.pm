@@ -1,6 +1,6 @@
 package PDF::Create::Page;
 
-our $VERSION = '1.41';
+our $VERSION = '1.42';
 
 =encoding utf8
 
@@ -10,7 +10,7 @@ PDF::Create::Page - PDF pages tree for PDF::Create
 
 =head1 VERSION
 
-Version 1.41
+Version 1.42
 
 =cut
 
@@ -25,6 +25,7 @@ use Scalar::Util qw(weaken);
 use PDF::Font;
 
 our $DEBUG = 0;
+our $DEFAULT_FONT_WIDTH = 1000;
 
 my $font_widths = &init_widths;
 # Global variable for text function
@@ -616,7 +617,7 @@ sub string_width {
 
     my $w = 0;
     for my $c ( split '', $string ) {
-        $w += $$font_widths{$fname}[ ord $c ];
+        $w += $$font_widths{$fname}[ ord $c ] || $DEFAULT_FONT_WIDTH;
     }
 
     return $w / 1000;

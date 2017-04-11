@@ -1,5 +1,9 @@
 Revision history for PDF::Create
 
+1.42  2017-04-11 12:15:00 MANWAR
+      - Assigned filehandle encoding to 'utf8' explicitly.
+      - Assigned default font width.
+
 1.41  2016-12-29 15:10:00 MANWAR
       - Proposed fix for RT #119292 and rollbacked patch for RT #118764.
 
