@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.44  2019-09-28 02:30:00 MANWAR
+      - Fixed typo in the pod w.r.t method string_underline().
+
 1.43  2017-09-23 20:20:00 MANWAR
       - Proposed fix for issues RT #123075 and #123076 with regard to
       setting encoding to file handle.

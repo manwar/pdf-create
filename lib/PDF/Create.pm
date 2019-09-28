@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.43';
+our $VERSION = '1.44';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.43
+Version 1.44
 
 =cut
 
@@ -648,7 +648,7 @@ define the click-sensitive area and the destination URI.
 
 Example:
 
-    # Draw a string and undeline it to show it is a link
+    # Draw a string and underline it to show it is a link
     $pdf->string($f1, 10, 450, 200, 'http://www.cpan.org');
 
     my $line = $pdf->string_underline($f1, 10, 450, 200, 'http://www.cpan.org');
@@ -668,7 +668,7 @@ The point (x, y) is  the  bottom  left corner of the rectangle containing hotspo
 rectangle, (w, h) are  the  width and height of the hotspot rectangle. The Border
 describes the thickness of the border surrounding the rectangle hotspot.
 
-The function C<string_undeline> returns the width of the string, this can be used
+The function C<string_underline> returns the width of the string, this can be used
 directly for the width of the hotspot rectangle.
 
 =cut
