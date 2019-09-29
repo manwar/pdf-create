@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.45  2019-09-29 10:10:00 MANWAR
+      - Moved author test scripts to xt/ subfolder.
+
 1.44  2019-09-28 02:30:00 MANWAR
       - Fixed typo in the pod w.r.t method string_underline().
 
