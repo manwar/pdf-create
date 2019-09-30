@@ -1,5 +1,8 @@
 Revision history for PDF::Create
 
+1.46  2019-09-30 15:15:00 MANWAR
+      - Updated SYNOPSIS code with/without 'use utf8;', thanks Mike West.
+
 1.45  2019-09-29 10:10:00 MANWAR
       - Moved author test scripts to xt/ subfolder.
 

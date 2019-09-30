@@ -1,6 +1,6 @@
 package PDF::Font;
 
-our $VERSION = '1.45';
+our $VERSION = '1.46';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Font - Base font class for PDF::Create.
 
 =head1 VERSION
 
-Version 1.45
+Version 1.46
 
 =cut
 

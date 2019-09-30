@@ -1,6 +1,6 @@
 package PDF::Create;
 
-our $VERSION = '1.45';
+our $VERSION = '1.46';
 
 =head1 NAME
 
@@ -8,7 +8,7 @@ PDF::Create - Create PDF files.
 
 =head1 VERSION
 
-Version 1.45
+Version 1.46
 
 =cut
 
@@ -88,6 +88,17 @@ of methods available on a page):
     # Draw some lines
     $page2->line(0, 0,   592, 840);
     $page2->line(0, 840, 592, 0);
+
+    $page2->string($font, 20, 50, 400, "default á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
+    $page2->string_underline($font, 20, 50, 400, "default á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
+
+    use utf8;
+    $page2->string($font, 20, 50, 350, "use utf8 á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
+    $page2->string_underline($font, 20, 50, 350, "use utf8 á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
+
+    no utf8;
+    $page2->string($font, 20, 50, 300, "no utf8 á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
+    $page2->string_underline($font, 20, 50, 300, "no utf8 á é í ó ú ñ  Á É Í Ó Ú Ñ ¿ ¡ a e i o u n'");
 
     $toc->new_outline('Title' => 'Second Page', 'Destination' => $page2);
 
@@ -785,9 +796,9 @@ sub image {
 
         $self->{'xobjects'}{$num}->{'ColorSpace'} = $self->array( $self->name('Indexed'), $self->name( $image->{colorspace} ),
                                                                   $self->number(255),     $self->indirect_ref(@$colorspace) );
-	} else {
-            $self->{'xobjects'}{$num}->{'ColorSpace'} = $self->array( $self->name( $image->{colorspace} ) );
-	}
+    } else {
+        $self->{'xobjects'}{$num}->{'ColorSpace'} = $self->array( $self->name( $image->{colorspace} ) );
+    }
 
     # Set Filter
     $#a = -1;
