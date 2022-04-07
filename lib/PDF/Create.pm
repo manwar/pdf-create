@@ -440,9 +440,9 @@ created outline. Parameters can be:
     |             |                                                             |
     | Title       | The title of the outline. Mandatory.                        |
     |             |                                                             |
-    | Destination | The Destination of this outline item. In this version,it is |
-    |             | only possible to give a page as destination. The default    |
-    |             | destination is the current page.                            |
+    | Destination | The Destination of this outline item. In this version, it   |
+    |             | is only possible to give a page (or subclass) as the        |
+    |             | destination.  The default destination is the current page.
     |             |                                                             |
     | Parent      | The parent of this outline in the outlines tree. This is an |
     |             | outline object. This way you represent the tree of your     |
@@ -469,12 +469,12 @@ sub new_outline {
 
     if (defined $params{Destination}) {
         croak "PDF::Create - new_outline(): Invalid value for key [Destination]."
-            unless (ref($params{Destination}) eq 'PDF::Create::Page');
+            unless $params{Destination}->isa('PDF::Create::Page');
     }
 
     if (defined $params{Parent}) {
         croak "PDF::Create - new_outline(): Invalid value for key [Parent]."
-            unless (ref($params{Parent}) eq 'PDF::Create::Outline');
+            unless $params{Parent}->isa('PDF::Create::Outline');
     }
 
     unless ( defined $self->{'outlines'} ) {
